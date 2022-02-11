@@ -5,18 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspose.Cells" Version="22.1.0" />
+    <PackageReference Include="ChoETL.JSON" Version="1.2.1.42" />
+    <PackageReference Include="ConvertCsvToJson" Version="1.0.0" />
     <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
     <PackageReference Include="FluentMigrator" Version="3.3.1" />
     <PackageReference Include="FluentMigrator.Runner" Version="3.3.1" />
     <PackageReference Include="FluentMigrator.Runner.SQLite" Version="3.3.1" />
+    <PackageReference Include="GroupDocs.Conversion" Version="22.1.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Core\Domain\ContactBook\Contact\" />
-    <Folder Include="Core\Interface\ContactBook\Contact\" />
   </ItemGroup>
 
 </Project>

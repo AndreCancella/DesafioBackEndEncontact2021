@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TesteBackendEnContact.Core.Domain.ContactBook.Contact;
+using TesteBackendEnContact.Core.Interface.ContactBook.Contact;
 using TesteBackendEnContact.Core.Interface.ContactBook;
 
 namespace TesteBackendEnContact.Repository.Interface

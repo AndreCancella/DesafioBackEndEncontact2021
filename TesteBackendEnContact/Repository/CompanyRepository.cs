@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TesteBackendEnContact.Core.Domain.ContactBook.Company;
 using TesteBackendEnContact.Core.Interface.ContactBook.Company;
+using TesteBackendEnContact.Core.Interface.ContactBook.Contact;
 using TesteBackendEnContact.Database;
 using TesteBackendEnContact.Repository.Interface;
 
@@ -37,13 +39,16 @@ namespace TesteBackendEnContact.Repository
         public async Task DeleteAsync(int id)
         {
             using var connection = new SqliteConnection(databaseConfig.ConnectionString);
+            connection.Open();
             using var transaction = connection.BeginTransaction();
 
-            var sql = new StringBuilder();
-            sql.AppendLine("DELETE FROM Company WHERE Id = @id;");
-            sql.AppendLine("UPDATE Contact SET CompanyId = null WHERE CompanyId = @id;");
+            using var command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM Company WHERE Id = @id;";
+            command.Parameters.AddWithValue("id", id);
+            command.ExecuteNonQuery();
+            transaction.Commit();
 
-            await connection.ExecuteAsync(sql.ToString(), new { id }, transaction);
+
         }
 
         public async Task<IEnumerable<ICompany>> GetAllAsync()
@@ -60,11 +65,11 @@ namespace TesteBackendEnContact.Repository
         {
             using var connection = new SqliteConnection(databaseConfig.ConnectionString);
 
-            var query = "SELECT * FROM Conpany where Id = @id";
-            var result = await connection.QuerySingleOrDefaultAsync<CompanyDao>(query, new { id });
+            var list = await GetAllAsync();
 
-            return result?.Export();
+            return list.ToList().Where(item => item.Id == id).FirstOrDefault();
         }
+
     }
 
     [Table("Company")]

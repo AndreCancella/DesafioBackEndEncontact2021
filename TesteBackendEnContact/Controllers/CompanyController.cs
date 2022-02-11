@@ -42,5 +42,6 @@ namespace TesteBackendEnContact.Controllers
         {
             return await companyRepository.GetAsync(id);
         }
+
     }
 }
